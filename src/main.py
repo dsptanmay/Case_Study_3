@@ -11,6 +11,8 @@ class Program:
         print("Welcome to the program!")
         print("-" * 100)
         self.emptyError = "Data Set is Currently Empty,\nInsert some data first!"
+
+    def run(self):
         self.createFiles()
         self.actionChoose()
 
@@ -230,11 +232,34 @@ class Program:
             choices=IDS,
             validate=lambda val: val in IDS,
         ).ask()
+
+        bill_row = []
+
         for row in data:
             if row[0] == billID:
                 bill_row = row
                 break
 
+        while True:
+            billQty = int(input("Enter the quantity that you want: "))
+            if billQty <= 0:
+                print("QTY cannot be <= 0!\nTry Again!")
+            else:
+                break
+
+        totalPrice = bill_row[3] * billQty
+
+        billContent = [[billID, bill_row[1], bill_row[2], bill_row[3], totalPrice]]
+        print(
+            tabulate(
+                tabular_data=billContent,
+                headers=["ID", "NAME", "DESC", "PRICE", "TOTAL PRICE"],
+                tablefmt="fancy_grid",
+            )
+        )
+        return
+
 
 if __name__ == "__main__":
     app = Program()
+    app.run()
