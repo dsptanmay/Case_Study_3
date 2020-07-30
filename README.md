@@ -11,7 +11,8 @@ Medicine Sales Report System
 ## Original Date of Creation
 - July 29th, 2020
 
-## Usage
+## Setup
 run ```pip install -r requirements.txt```
 
+## Usage
 run ```src/main.py```
