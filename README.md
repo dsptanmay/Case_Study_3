@@ -13,4 +13,5 @@ Medicine Sales Report System
 
 ## Usage
 run ```pip install -r requirements.txt```
+
 run ```src/main.py```
