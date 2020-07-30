@@ -25,8 +25,7 @@ class Program:
             "PURCHASE MEDICINE AND GENERATE BILL".capitalize(),
             "EXIT",
         ]
-        conf = True
-        while conf:
+        while True:
             resp = questionary.select(
                 "Choose an action: ", choices, default=choices[-1]
             ).ask()
@@ -41,12 +40,11 @@ class Program:
             elif resp == choices[4]:
                 self.purchase()
             elif resp == choices[5]:
+                print("You have chosen to exit!")
                 exit()
             else:
                 print("An error occurred!")
                 exit()
-
-            conf = questionary.confirm("Do you wish to continue?", default=False).ask()
 
     def createFiles(self) -> None:
         with open("medicine.dat", "wb") as target:
@@ -56,52 +54,56 @@ class Program:
         return
 
     def newMed(self):
-        with open("medicine.dat", "rb") as fileObj:
-            curData = pickle.load(fileObj)
-            fileObj.close()
-        while True:
-            med_id = str(input("Enter the Medicine I.D. : "))
-            if med_id.isalnum() == True and len(med_id) == 3:
-                break
-            else:
-                print("Try again!")
-                print("Hint: The I.D. should be alphanumeric and 3 digits")
+        cont = True
+        while cont:
+            with open("medicine.dat", "rb") as fileObj:
+                curData = pickle.load(fileObj)
+                fileObj.close()
+            while True:
+                med_id = str(input("Enter the Medicine I.D. : "))
+                if med_id.isalnum() == True and len(med_id) == 3:
+                    break
+                else:
+                    print("Try again!")
+                    print("Hint: The I.D. should be alphanumeric and 3 digits")
 
-        while True:
-            med_name = str(input("Enter the Medicine Name: "))
-            if 1 <= len(med_name) <= 30:
-                break
-            else:
-                print(
-                    "Medicine Name should not be empty and should be less than 30 characters!"
-                )
+            while True:
+                med_name = str(input("Enter the Medicine Name: "))
+                if 1 <= len(med_name) <= 30:
+                    break
+                else:
+                    print(
+                        "Medicine Name should not be empty and should be less than 30 characters!"
+                    )
 
-        while True:
-            med_desc = str(input("Enter a short description (50 chars max): "))
-            if 10 <= len(med_desc) <= 50:
-                break
-            else:
-                print("Try again!")
+            while True:
+                med_desc = str(input("Enter a short description (50 chars max): "))
+                if 5 <= len(med_desc) <= 50:
+                    break
+                else:
+                    print("Try again!")
 
-        while True:
-            medPrice = str(input("Enter the price of the medicine: "))
-            medQty = str(input("Enter the quantity of the medicine: "))
-            medReQty = str(input("Enter the reorder quantity of the medicine: "))
-            if int(medPrice) > 0 and int(medQty) > 0 and int(medReQty) > 0:
-                medPrice = int(medPrice)
-                medQty = int(medQty)
-                medReQty = int(medReQty)
-                break
-            else:
-                print("Try again!")
+            while True:
+                medPrice = str(input("Enter the price of the medicine: "))
+                medQty = str(input("Enter the quantity of the medicine: "))
+                medReQty = str(input("Enter the reorder quantity of the medicine: "))
+                if int(medPrice) > 0 and int(medQty) > 0 and int(medReQty) > 0:
+                    medPrice = int(medPrice)
+                    medQty = int(medQty)
+                    medReQty = int(medReQty)
+                    break
+                else:
+                    print("Try again!")
 
-        toBeIns = [med_id, med_name, med_desc, medPrice, medQty, medReQty]
-        curData.append(toBeIns)
-        with open("medicine.dat", "wb") as file:
-            pickle.dump(curData, file)
-            file.close()
+            toBeIns = [med_id, med_name, med_desc, medPrice, medQty, medReQty]
+            curData.append(toBeIns)
+            with open("medicine.dat", "wb") as file:
+                pickle.dump(curData, file)
+                file.close()
 
-        return
+            cont = questionary.confirm(
+                "Do you wish to continue?(y/n)", default=False
+            ).ask()
 
     def modifyData(self):
         with open("medicine.dat", "rb") as file:
@@ -109,6 +111,7 @@ class Program:
             file.close()
         if len(data) == 0:
             print(self.emptyError)
+            return
         ids = []
         for row in data:
             if row[0] not in ids:
@@ -176,33 +179,37 @@ class Program:
         return
 
     def delMed(self):
-        with open("medicine.dat", "rb") as file:
-            data: List[List[Any]] = pickle.load(file)
-            file.close()
-        if len(data) == 0:
-            print(self.emptyError)
-            return
-        IDS = [row[0] for row in data]
-        delId = questionary.autocomplete(
-            "Choose the I.D. for which you want to delete record: ",
-            choices=IDS,
-            validate=lambda val: val in IDS,
-        ).ask()
-        for row in data:
-            if row[0] == delId:
-                data.remove(row)
-                break
-        with open("medicine.dat", "wb") as fh:
-            pickle.dump(data, fh)
-            fh.close()
-        return
+        cont = True
+        while cont:
+            with open("medicine.dat", "rb") as file:
+                data: List[List[Any]] = pickle.load(file)
+                file.close()
+            if len(data) == 0:
+                print(self.emptyError)
+                return
+            IDS = [row[0] for row in data]
+            delId = questionary.autocomplete(
+                "Choose the I.D. for which you want to delete record: ",
+                choices=IDS,
+                validate=lambda val: val in IDS,
+            ).ask()
+            for row in data:
+                if row[0] == delId:
+                    data.remove(row)
+                    break
+            with open("medicine.dat", "wb") as fh:
+                pickle.dump(data, fh)
+                fh.close()
+            cont = questionary.confirm(
+                "Do you wish to continue?(y/n):", default=False
+            ).ask()
 
     def showAll(self):
         with open("medicine.dat", "rb") as file:
             data = pickle.load(file)
             file.close()
         if len(data) == 0:
-            print("Insert some data first!")
+            print(self.emptyError)
             return
         print(
             tabulate(
@@ -221,11 +228,12 @@ class Program:
         return
 
     def purchase(self):
-        with open("medicine.dat", "wb") as fileObject:
+        with open("medicine.dat", "rb") as fileObject:
             data: List[List[Any]] = pickle.load(fileObject)
             fileObject.close()
         if len(data) == 0:
             print(self.emptyError)
+            return
         IDS = [row[0] for row in data]
         billID = questionary.autocomplete(
             "Enter the ID of the Medicine that you want to buy: ",
@@ -241,19 +249,22 @@ class Program:
                 break
 
         while True:
-            billQty = int(input("Enter the quantity that you want: "))
-            if billQty <= 0:
+            billQty = str(input("Enter the quantity that you want: "))
+            if int(billQty) <= 0:
                 print("QTY cannot be <= 0!\nTry Again!")
             else:
+                billQty = int(billQty)
                 break
 
         totalPrice = bill_row[3] * billQty
 
-        billContent = [[billID, bill_row[1], bill_row[2], bill_row[3], totalPrice]]
+        billContent = [
+            [billID, bill_row[1], bill_row[2], bill_row[3], billQty, totalPrice]
+        ]
         print(
             tabulate(
                 tabular_data=billContent,
-                headers=["ID", "NAME", "DESC", "PRICE", "TOTAL PRICE"],
+                headers=["ID", "NAME", "DESC", "PRICE", "QTY", "TOTAL PRICE"],
                 tablefmt="fancy_grid",
             )
         )
