@@ -89,11 +89,22 @@ class Program:
 
             while True:
                 medPrice = str(input("Enter the price of the medicine: "))
-                medQty = str(input("Enter the quantity of the medicine: "))
-                medReQty = str(input("Enter the reorder quantity of the medicine: "))
-                if int(medPrice) > 0 and int(medQty) > 0 and int(medReQty) > 0:
+                if int(medPrice) > 0:
                     medPrice = int(medPrice)
+                    break
+                else:
+                    print("Try again!")
+            while True:
+                medQty = str(input("Enter the quantity of the medicine: "))
+                if int(medQty) > 0:
                     medQty = int(medQty)
+                    break
+                else:
+                    print("Try again!")
+
+            while True:
+                medReQty = str(input("Enter the reorder quantity of the medicine: "))
+                if int(medReQty) > 0:
                     medReQty = int(medReQty)
                     break
                 else:
