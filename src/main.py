@@ -57,12 +57,16 @@ class Program:
         cont = True
         while cont:
             with open("medicine.dat", "rb") as fileObj:
-                curData = pickle.load(fileObj)
+                curData: List[List[Any]] = pickle.load(fileObj)
                 fileObj.close()
+                CUR_IDS = [row[0] for row in curData]
             while True:
                 med_id = str(input("Enter the Medicine I.D. : "))
                 if med_id.isalnum() == True and len(med_id) == 3:
-                    break
+                    if med_id in CUR_IDS:
+                        print("This ID is already taken!")
+                    else:
+                        break
                 else:
                     print("Try again!")
                     print("Hint: The I.D. should be alphanumeric and 3 digits")
