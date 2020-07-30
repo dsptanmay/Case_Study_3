@@ -94,6 +94,7 @@ class Program:
                     break
                 else:
                     print("Try again!")
+
             while True:
                 medQty = str(input("Enter the quantity of the medicine: "))
                 if int(medQty) > 0:
