@@ -116,14 +116,14 @@ class Program:
         if len(data) == 0:
             print(self.emptyError)
             return
-        ids = []
+        IDS = []
         for row in data:
-            if row[0] not in ids:
-                ids.append(row[0])
+            if row[0] not in IDS:
+                IDS.append(row[0])
         modId = questionary.autocomplete(
             "Enter the I.D. for which you want to modify details: ",
-            ids,
-            validate=lambda val: val in ids,
+            IDS,
+            validate=lambda val: val in IDS,
         ).ask()
         modRow = []
         modIndex = 0
