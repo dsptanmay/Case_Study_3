@@ -4,12 +4,11 @@ Medicine Sales Report System
 
 ## Modules used:
 - Pickle
-- Questionary
-- Tabulate
+- OS
 - typing
+- [Questionary](https://pypi.org/project/questionary/)
+- [Tabulate](https://pypi.org/project/tabulate/)
 
-## Original Date of Creation
-- July 29th, 2020
 
 ## Setup
 run ```pip install -r requirements.txt```
