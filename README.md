@@ -11,9 +11,14 @@ Medicine Sales Report System
 
 
 ## Setup
-run ```pip install -r requirements.txt```
+run ```pip install -r requirements.txt``` 
+
+or
+
+run ```setup.py```
 
 ## Usage
 run ```src/main.py```
+- Make sure to run the file in a shell window (required by questionary)
 
 <img src=https://raw.githubusercontent.com/dsptanmay/Case_Study_3/main/demo/usage.gif width=1920 >
