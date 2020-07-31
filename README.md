@@ -17,4 +17,4 @@ run ```pip install -r requirements.txt```
 ## Usage
 run ```src/main.py```
 
-![Usage of Program](demo/usage.mp4)
+![Usage of Program](demo/usage.gif)
