@@ -1,6 +1,6 @@
 import datetime
-from os import get_terminal_size
 import pickle
+from os import get_terminal_size
 from typing import Any, List
 
 import questionary
