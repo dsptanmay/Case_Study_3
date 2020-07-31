@@ -1,3 +1,4 @@
+from os import get_terminal_size
 import pickle
 from typing import Any, List
 
@@ -7,9 +8,10 @@ from tabulate import tabulate
 
 class Program:
     def __init__(self) -> None:
-        print("-" * 100)
-        print("Welcome to the program!")
-        print("-" * 100)
+        term = get_terminal_size()
+        print("-" * term.columns)
+        print("Medicine Purchase System".center(term.columns))
+        print("-" * term.columns)
         self.emptyError = "Data Set is Currently Empty,\nInsert some data first!"
 
     def run(self):
