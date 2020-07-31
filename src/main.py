@@ -1,3 +1,4 @@
+import datetime
 from os import get_terminal_size
 import pickle
 from typing import Any, List
@@ -8,10 +9,11 @@ from tabulate import tabulate
 
 class Program:
     def __init__(self) -> None:
-        term = get_terminal_size()
-        print("-" * term.columns)
-        print("Medicine Purchase System".center(term.columns))
-        print("-" * term.columns)
+        self.today = str(datetime.date.today())
+        self.term = get_terminal_size()
+        print("-" * self.term.columns)
+        print("Medicine Purchase System".center(self.term.columns))
+        print("-" * self.term.columns)
         self.emptyError = "Data Set is Currently Empty,\nInsert some data first!"
 
     def run(self):
@@ -275,6 +277,9 @@ class Program:
         billContent = [
             [billID, bill_row[1], bill_row[2], bill_row[3], billQty, totalPrice]
         ]
+        print("-" * self.term.columns)
+        print(f"Bill generated on {self.today}".center(self.term.columns))
+        print("-" * self.term.columns)
         print(
             tabulate(
                 tabular_data=billContent,
