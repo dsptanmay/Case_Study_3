@@ -244,50 +244,52 @@ class Program:
         return
 
     def purchase(self):
-        with open("medicine.dat", "rb") as fileObject:
-            data: List[List[Any]] = pickle.load(fileObject)
-            fileObject.close()
-        if len(data) == 0:
-            print(self.emptyError)
-            return
-        IDS = [row[0] for row in data]
-        billID = questionary.autocomplete(
-            "Enter the ID of the Medicine that you want to buy: ",
-            choices=IDS,
-            validate=lambda val: val in IDS,
-        ).ask()
+        cont = True
+        while cont:
+            with open("medicine.dat", "rb") as fileObject:
+                data: List[List[Any]] = pickle.load(fileObject)
+                fileObject.close()
+            if len(data) == 0:
+                print(self.emptyError)
+                return
+            IDS = [row[0] for row in data]
+            billID = questionary.autocomplete(
+                "Enter the ID of the Medicine that you want to buy: ",
+                choices=IDS,
+                validate=lambda val: val in IDS,
+            ).ask()
 
-        bill_row = []
+            bill_row = []
 
-        for row in data:
-            if row[0] == billID:
-                bill_row = row
-                break
+            for row in data:
+                if row[0] == billID:
+                    bill_row = row
+                    break
 
-        while True:
-            billQty = str(input("Enter the quantity that you want: "))
-            if int(billQty) <= 0:
-                print("QTY cannot be <= 0!\nTry Again!")
-            else:
-                billQty = int(billQty)
-                break
+            while True:
+                billQty = str(input("Enter the quantity that you want: "))
+                if int(billQty) <= 0:
+                    print("QTY cannot be <= 0!\nTry Again!")
+                else:
+                    billQty = int(billQty)
+                    break
 
-        totalPrice = bill_row[3] * billQty
+            totalPrice = bill_row[3] * billQty
 
-        billContent = [
-            [billID, bill_row[1], bill_row[2], bill_row[3], billQty, totalPrice]
-        ]
-        print("-" * self.term.columns)
-        print(f"Bill generated on {self.today}".center(self.term.columns))
-        print("-" * self.term.columns)
-        print(
-            tabulate(
-                tabular_data=billContent,
-                headers=["ID", "NAME", "DESC", "PRICE", "QTY", "TOTAL PRICE"],
-                tablefmt="fancy_grid",
+            billContent = [
+                [billID, bill_row[1], bill_row[2], bill_row[3], billQty, totalPrice]
+            ]
+            print("-" * self.term.columns)
+            print(f"Bill generated on {self.today}".center(self.term.columns))
+            print("-" * self.term.columns)
+            print(
+                tabulate(
+                    tabular_data=billContent,
+                    headers=["ID", "NAME", "DESC", "PRICE", "QTY", "TOTAL PRICE"],
+                    tablefmt="fancy_grid",
+                )
             )
-        )
-        return
+            cont = questionary.confirm("Do you wish to continue?", default=False).ask()
 
 
 if __name__ == "__main__":
