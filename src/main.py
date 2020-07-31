@@ -11,10 +11,10 @@ class Program:
     def __init__(self) -> None:
         self.today = str(datetime.date.today())
         self.term = get_terminal_size()
+        self.emptyError = "Data Set is Currently Empty,\nInsert some data first!"
         print("-" * self.term.columns)
         print("Medicine Purchase System".center(self.term.columns))
         print("-" * self.term.columns)
-        self.emptyError = "Data Set is Currently Empty,\nInsert some data first!"
 
     def run(self):
         self.createFiles()
@@ -218,7 +218,9 @@ class Program:
             with open("medicine.dat", "wb") as fh:
                 pickle.dump(data, fh)
                 fh.close()
-            cont = questionary.confirm("Do you wish to continue?:", default=False).ask()
+            cont: bool = questionary.confirm(
+                "Do you wish to continue?:", default=False
+            ).ask()
 
     def showAll(self):
         with open("medicine.dat", "rb") as file:
