@@ -117,9 +117,7 @@ class Program:
                 pickle.dump(curData, file)
                 file.close()
 
-            cont = questionary.confirm(
-                "Do you wish to continue?(y/n)", default=False
-            ).ask()
+            cont = questionary.confirm("Do you wish to continue?", default=False).ask()
 
     def modifyData(self):
         with open("medicine.dat", "rb") as file:
@@ -216,9 +214,7 @@ class Program:
             with open("medicine.dat", "wb") as fh:
                 pickle.dump(data, fh)
                 fh.close()
-            cont = questionary.confirm(
-                "Do you wish to continue?(y/n):", default=False
-            ).ask()
+            cont = questionary.confirm("Do you wish to continue?:", default=False).ask()
 
     def showAll(self):
         with open("medicine.dat", "rb") as file:
