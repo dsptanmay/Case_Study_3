@@ -1,13 +1,12 @@
-import questionary
-
-from tabulate import tabulate
-
 import pickle
 import datetime
+import questionary
 
 from os import get_terminal_size
-from setup import setup
 from typing import Any, List
+from tabulate import tabulate
+
+from setup import setup
 
 
 class Program:
@@ -286,9 +285,9 @@ class Program:
             totalPrice = bill_row[3] * billQty
 
             billContent = [
-                [billID, 
-                 bill_row[1], 
-                 bill_row[2], 
+                [billID,
+                 bill_row[1],
+                 bill_row[2],
                  bill_row[3], 
                  billQty, 
                  totalPrice]

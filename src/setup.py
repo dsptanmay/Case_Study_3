@@ -1,5 +1,4 @@
 import sys
-
 import pkg_resources
 import subprocess as sp
 
@@ -14,12 +13,12 @@ def setup():
 
     if missing:
         sp.check_call(
-            [python, 
-             "-m", 
-             "pip", 
-             "--install", 
-             "--upgrade", 
-             "--no-cache-dir", 
+            [python,
+             "-m",
+             "pip",
+             "--install",
+             "--upgrade",
+             "--no-cache-dir",
              *missing],
             stdout=sp.DEVNULL,
         )
