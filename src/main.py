@@ -1,9 +1,10 @@
-import datetime
 import pickle
-from os import get_terminal_size
-from typing import Any, List
-
+import datetime
 import questionary
+
+from os import get_terminal_size
+from setup import setup
+from typing import Any, List
 from tabulate import tabulate
 
 
@@ -16,6 +17,7 @@ class Program:
         print("-" * self.term.columns)
         print("Medicine Purchase System".center(self.term.columns))
         print("-" * self.term.columns)
+        setup()
 
     def run(self):
         self.createFiles()
