@@ -1,11 +1,13 @@
+import questionary
+
+from tabulate import tabulate
+
 import pickle
 import datetime
-import questionary
 
 from os import get_terminal_size
 from setup import setup
 from typing import Any, List
-from tabulate import tabulate
 
 
 class Program:
