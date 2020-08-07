@@ -3,14 +3,14 @@ import datetime
 import questionary
 
 from os import get_terminal_size
+from setup import setup
 from typing import Any, List
 from tabulate import tabulate
-
-from setup import setup
 
 
 class Program:
     def __init__(self) -> None:
+        print("Welcome to the program!")
         self.today = str(datetime.date.today())
         self.term = get_terminal_size()
         self.emptyError = str("Data Set is Currently Empty,\
