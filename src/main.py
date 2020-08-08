@@ -3,7 +3,7 @@ import datetime
 import questionary
 
 from os import get_terminal_size
-from setup import setup
+from .setup import setup
 from typing import Any, List
 from tabulate import tabulate
 
