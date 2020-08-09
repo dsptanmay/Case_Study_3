@@ -13,8 +13,10 @@ class Program:
         print("Welcome to the program!")
         self.today = str(datetime.date.today())
         self.term = get_terminal_size()
-        self.emptyError = str("""Data Set is Currently Empty,
-                              Insert some data first!""")
+        self.emptyError = str(
+            """Data Set is Currently Empty,
+               Insert some data first!"""
+        )
         print("-" * self.term.columns)
         print("Medicine Purchase System".center(self.term.columns))
         print("-" * self.term.columns)
@@ -90,9 +92,7 @@ class Program:
                     )
 
             while True:
-                med_desc = str(input(
-                    "Enter a short description (50 chars max): "
-                ))
+                med_desc = str(input("Enter a short description (50 chars max): "))
                 if 5 <= len(med_desc) <= 50:
                     break
                 else:
@@ -189,9 +189,7 @@ class Program:
 
         # Reorder qty loop
         while True:
-            newReQty = str(input(
-                "Enter the new Reorder Quantity(Enter for skip): "
-            ))
+            newReQty = str(input("Enter the new Reorder Quantity(Enter for skip): "))
             if newReQty.rstrip(" ").lstrip(" ") == "":
                 break
             else:
@@ -288,12 +286,7 @@ class Program:
             totalPrice = bill_row[3] * billQty
 
             billContent = [
-                [billID,
-                 bill_row[1],
-                 bill_row[2],
-                 bill_row[3],
-                 billQty,
-                 totalPrice]
+                [billID, bill_row[1], bill_row[2], bill_row[3], billQty, totalPrice]
             ]
             print("-" * self.term.columns)
             print(f"Bill generated on {self.today}".center(self.term.columns))
@@ -301,18 +294,11 @@ class Program:
             print(
                 tabulate(
                     tabular_data=billContent,
-                    headers=["ID",
-                             "NAME",
-                             "DESC",
-                             "PRICE",
-                             "QTY",
-                             "TOTAL PRICE"],
+                    headers=["ID", "NAME", "DESC", "PRICE", "QTY", "TOTAL PRICE"],
                     tablefmt="fancy_grid",
                 )
             )
-            cont = questionary.confirm(
-                "Do you wish to continue?",
-                default=False).ask()
+            cont = questionary.confirm("Do you wish to continue?", default=False).ask()
 
 
 if __name__ == "__main__":
