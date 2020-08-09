@@ -13,6 +13,7 @@ pprintpp==0.4.0
 prompt-toolkit==3.0.5
 Pygments==2.6.1
 pylint==2.5.3
+PyMySQL==0.10.0
 questionary==1.5.2
 regex==2020.7.14
 rich==4.2.2
